@@ -1,0 +1,1 @@
+# gcp-monitoring-to-azure-monitor-cloud-function
