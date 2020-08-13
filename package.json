@@ -1,0 +1,14 @@
+{
+  "name": "gcp-monitoring-to-azure-monitor-cloud-function",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": {
+    "name": "Chad A. Carino",
+    "email": "artist@chadacarino.com",
+    "url": "https://www.chadacarino.com"
+  },
+  "repository": "github:bangerkuwranger/gcp-monitoring-to-azure-monitor-cloud-function",
+  "dependencies": {
+    "@google-cloud/pubsub": "^0.18.0"
+  }
+}
