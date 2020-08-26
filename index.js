@@ -38,7 +38,7 @@ function PushToAzureLogs(content, {id, key, rfc1123date, LogType}, callback) {
             var stringToSign = 'POST\n' + length + '\napplication/json\nx-ms-date:' + rfc1123date + '\n/api/logs';
             
             if (isDebug) {
-				console.log(PROC_NAME + ' - Azure Unhashed Auth: ' + stringToSign);
+				console.log(PROC_NAME + ' - Azure Unhashed Auth: ' + stringToSign.replace(/(\r\n|\n|\r)/gm, ""));
 			}
      
             var hash = crypto.createHmac('sha256',binaryKey)
@@ -138,7 +138,7 @@ exports.sendMsgToAzure = (event, context) => {
     		if ('object' === typeof result.res && null !== result.res) {
     			result.err.response = result.res;
     		}
-    		console.error(util.inspect(result.err, {showHidden: false, depth: null}));
+    		console.error(util.inspect(result.err, {showHidden: false, depth: null}).replace(/(\r\n|\n|\r)/gm, "    "));
     	}
     });
 };
