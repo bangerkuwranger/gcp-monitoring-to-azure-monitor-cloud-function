@@ -133,7 +133,7 @@ exports.sendMsgToAzure = (event, context) => {
         ? Buffer.from(event.data, 'base64').toString()
         : 'No Content';
     PushToAzureLogs(message, {'id': process.env.CUSTID, 'key': process.env.SHAREDKEY, 'rfc1123date': event.data.date, 'LogType': process.env.LOGTYPE}, (result) => {
-    	console.log(result.msg);
+    	console.log(PROC_NAME + ' - ' result.msg);
     	if (isDebug && 'undefined' !== typeof result.err && null !== result.err) {
     		if ('object' === typeof result.res && null !== result.res) {
     			result.err.response = result.res;
