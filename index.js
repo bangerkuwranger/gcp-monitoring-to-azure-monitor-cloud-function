@@ -138,7 +138,7 @@ exports.sendMsgToAzure = (event, context) => {
     		if ('object' === typeof result.res && null !== result.res) {
     			err.response = result.res;
     		}
-    		console.error(util.inspect(err, {showHidden: false, depth: null});
+    		console.error(util.inspect(err, {showHidden: false, depth: null}));
     	}
     });
 };
