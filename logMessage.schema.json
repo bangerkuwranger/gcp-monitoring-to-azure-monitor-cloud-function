@@ -1,0 +1,261 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome",
+    "definitions": {
+        "Welcome": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "incident": {
+                    "$ref": "#/definitions/Incident"
+                },
+                "version": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "incident",
+                "version"
+            ],
+            "title": "Welcome"
+        },
+        "Incident": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "incident_id": {
+                    "type": "string"
+                },
+                "resource_id": {
+                    "type": "string"
+                },
+                "resource_name": {
+                    "type": "string"
+                },
+                "resource": {
+                    "$ref": "#/definitions/Resource"
+                },
+                "resource_type_display_name": {
+                    "type": "string"
+                },
+                "metric": {
+                    "$ref": "#/definitions/Metric"
+                },
+                "started_at": {
+                    "type": "integer"
+                },
+                "policy_name": {
+                    "type": "string"
+                },
+                "condition_name": {
+                    "type": "string"
+                },
+                "condition": {
+                    "$ref": "#/definitions/Condition"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".lqtcptoc5n28"
+                    ]
+                },
+                "documentation": {
+                    "$ref": "#/definitions/Documentation"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "ended_at": {
+                    "type": "integer"
+                },
+                "summary": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "condition",
+                "condition_name",
+                "documentation",
+                "ended_at",
+                "incident_id",
+                "metric",
+                "policy_name",
+                "resource",
+                "resource_id",
+                "resource_name",
+                "resource_type_display_name",
+                "started_at",
+                "state",
+                "summary",
+                "url"
+            ],
+            "title": "Incident"
+        },
+        "Condition": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "displayName": {
+                    "type": "string"
+                },
+                "conditionThreshold": {
+                    "$ref": "#/definitions/ConditionThreshold"
+                }
+            },
+            "required": [
+                "conditionThreshold",
+                "displayName",
+                "name"
+            ],
+            "title": "Condition"
+        },
+        "ConditionThreshold": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "filter": {
+                    "type": "string"
+                },
+                "aggregations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Aggregation"
+                    }
+                },
+                "comparison": {
+                    "type": "string"
+                },
+                "thresholdValue": {
+                    "type": "integer"
+                },
+                "duration": {
+                    "type": "string"
+                },
+                "trigger": {
+                    "$ref": "#/definitions/Trigger"
+                }
+            },
+            "required": [
+                "aggregations",
+                "comparison",
+                "duration",
+                "filter",
+                "thresholdValue",
+                "trigger"
+            ],
+            "title": "ConditionThreshold"
+        },
+        "Aggregation": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "alignmentPeriod": {
+                    "type": "string"
+                },
+                "perSeriesAligner": {
+                    "type": "string"
+                },
+                "groupByFields": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "alignmentPeriod",
+                "groupByFields",
+                "perSeriesAligner"
+            ],
+            "title": "Aggregation"
+        },
+        "Trigger": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "count": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "count"
+            ],
+            "title": "Trigger"
+        },
+        "Documentation": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "mime_type": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "content",
+                "mime_type"
+            ],
+            "title": "Documentation"
+        },
+        "Metric": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "displayName": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "displayName",
+                "type"
+            ],
+            "title": "Metric"
+        },
+        "Resource": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "labels": {
+                    "$ref": "#/definitions/Labels"
+                }
+            },
+            "required": [
+                "labels",
+                "type"
+            ],
+            "title": "Resource"
+        },
+        "Labels": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "module_id": {
+                    "type": "string"
+                },
+                "zone": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "module_id",
+                "zone"
+            ],
+            "title": "Labels"
+        }
+    }
+}

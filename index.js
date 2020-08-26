@@ -10,7 +10,7 @@ const PROC_NAME = 'Cloud Function Monitoring to Azure';
 
 /**
  * The environment variable ISDEBUG will turn on debugging behavior if defined
- * @env * ISDEBUG enables debug logging if defined
+ * @env * ISDEBUG enables debug logging if defined (true is the most declarative value)
  */
 var isDebug = false;
 if ('undefined' !== typeof process.env.ISDEBUG) {
