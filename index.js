@@ -72,6 +72,7 @@ function PushToAzureLogs(content, {id, key, rfc1123date, LogType}, callback) {
                			msg: "Data successfully sent to Azure " + util.inspect(content) + "with status code " + Response.statusCode,
                			res: Response,
                			err: null
+               		});
      			}
      			else {
      			
