@@ -136,9 +136,9 @@ exports.sendMsgToAzure = (event, context) => {
     	console.log(result.msg);
     	if (isDebug && 'undefined' !== typeof result.err && null !== result.err) {
     		if ('object' === typeof result.res && null !== result.res) {
-    			err.response = result.res;
+    			result.err.response = result.res;
     		}
-    		console.error(util.inspect(err, {showHidden: false, depth: null}));
+    		console.error(util.inspect(result.err, {showHidden: false, depth: null}));
     	}
     });
 };
