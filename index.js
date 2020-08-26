@@ -91,6 +91,17 @@ function PushToAzureLogs(content, {id, key, rfc1123date, LogType}, callback) {
             
 }
 
+function formatTheDate(dateString) {
+	var dateObj = new Date();
+	if ('object' === typeof dateString && dateString instanceof Date) {
+		dateObj = dateString;
+	}
+	else if ('string' === typeof dateString) {
+		dateObj = new Date(dateString);
+	}
+	return dateObj.toUTCString();
+}
+
 /* END Local Functions
  **/
 
@@ -129,10 +140,14 @@ exports.helloPubSub = (event, context) => {
  * @env string LOGTYPE The predefined custom log type schema name in Azure.
  */
 exports.sendMsgToAzure = (event, context) => {
+    if (isDebug && 'undefined' !== typeof event) {
+    	console.log(PROC_NAME + ' - event: ' + JSON.stringify(event));
+    }
     const message = event.data
         ? Buffer.from(event.data, 'base64').toString()
         : 'No Content';
-    PushToAzureLogs(message, {'id': process.env.CUSTID, 'key': process.env.SHAREDKEY, 'rfc1123date': event.data.date, 'LogType': process.env.LOGTYPE}, (result) => {
+    const theDate = formatTheDate(event.data.date);
+    PushToAzureLogs(message, {'id': process.env.CUSTID, 'key': process.env.SHAREDKEY, 'rfc1123date': theDate, 'LogType': process.env.LOGTYPE}, (result) => {
     	console.log(PROC_NAME + ' - ' + result.msg);
     	if (isDebug && 'undefined' !== typeof result.err && null !== result.err) {
     		if ('object' === typeof result.res && null !== result.res) {
