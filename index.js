@@ -138,7 +138,7 @@ exports.sendMsgToAzure = (event, context) => {
     		if ('object' === typeof result.res && null !== result.res) {
     			result.err.response = result.res;
     		}
-    		console.error(util.inspect(result.err, {showHidden: false, depth: null}).replace(/(\r\n|\n|\r)/gm, "    "));
+    		console.error(result.err);
     	}
     });
 };
