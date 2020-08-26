@@ -153,7 +153,7 @@ exports.sendMsgToAzure = (event, context) => {
     		if ('object' === typeof result.res && null !== result.res) {
     			result.err.response = result.res;
     		}
-    		console.error(result.err);
+    		console.error(JSON.stringify(result.err));
     	}
     });
 };
