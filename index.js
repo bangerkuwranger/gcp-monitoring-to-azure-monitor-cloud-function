@@ -39,7 +39,7 @@ function PushToAzureLogs(content, {id, key, rfc1123date, LogType}, callback) {
             
             if (isDebug) {
 				console.log(PROC_NAME + ' - Azure Unhashed Auth: ' + stringToSign.replace(/(\r\n|\n|\r)/gm, ""));
-				console.log(PROC_NAME + ' - Content to Send: ' + content));
+				console.log(PROC_NAME + ' - Content to Send: ' + content.replace(/(\r\n|\n|\r)/gm, "")));
 			}
      
             var hash = crypto.createHmac('sha256',binaryKey)
@@ -69,7 +69,7 @@ function PushToAzureLogs(content, {id, key, rfc1123date, LogType}, callback) {
 					});
                 }
                 else if (Response && Response.statusCode === 200) {
-               		var sentData = (content instanceof Buffer) ? content.toString() : util.inspect(content);
+               		var sentData = (content instanceof Buffer) ? content.toString().replace(/(\r\n|\n|\r)/gm, "") : util.inspect(content);
                		return callback({
                			msg: "Data successfully sent to Azure " + sentData + "with status code " + Response.statusCode,
                			res: Response,
@@ -155,7 +155,7 @@ exports.sendMsgToAzure = (event, context) => {
 		console.log(PROC_NAME + ' - event: ' + JSON.stringify(event));
 		console.log(PROC_NAME + ' - message: ' + message);
 	}
-	var msgObj = (message === 'No Content') ? {} : Buffer.from(event.data, 'base64').toJSON();
+	var msgObj = (message === 'No Content') ? {} : JSON.parse(Buffer.from(event.data, 'base64').toString());
     PushToAzureLogs(msgObj, {'id': process.env.CUSTID, 'key': process.env.SHAREDKEY, 'rfc1123date': theDate, 'LogType': process.env.LOGTYPE}, (result) => {
     	console.log(PROC_NAME + ' - ' + result.msg);
     	if (isDebug && 'object' === typeof result.err && null !== result.err) {
