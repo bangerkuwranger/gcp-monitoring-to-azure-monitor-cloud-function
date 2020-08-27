@@ -32,8 +32,8 @@ function PushToAzureLogs(content, {id, key, rfc1123date, LogType}, callback) {
 	}
     try {
         //Checking if the data can be parsed as JSON
-        if ( JSON.parse(JSON.stringify(content)) ) {
-            var length = Buffer.byteLength(JSON.stringify(content),'utf8');
+        if ( JSON.parse(content) ) {
+            var length = Buffer.byteLength(content,'utf8');
             var binaryKey = Buffer.from(key,'base64');
             var stringToSign = 'POST\n' + length + '\napplication/json\nx-ms-date:' + rfc1123date + '\n/api/logs';
             
@@ -147,7 +147,7 @@ exports.helloPubSub = (event, context) => {
 exports.sendMsgToAzure = (event, context) => {
     const theDate = formatTheDate(event.date);
     const message = event.data
-        ? Buffer.from(event.data, 'base64').toString()
+        ? Buffer.from(event.data, 'base64').toJSON()
         : 'No Content';
 	if (isDebug) {
 		console.log(PROC_NAME + ' - event: ' + JSON.stringify(event));
