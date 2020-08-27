@@ -147,7 +147,7 @@ exports.helloPubSub = (event, context) => {
 exports.sendMsgToAzure = (event, context) => {
     const theDate = formatTheDate(event.date);
     const message = event.data
-        ? Buffer.from(event.data, 'base64').toJSON()
+        ? Buffer.from(event.data, 'base64').toString()
         : 'No Content';
 	if (isDebug) {
 		console.log(PROC_NAME + ' - event: ' + JSON.stringify(event));
