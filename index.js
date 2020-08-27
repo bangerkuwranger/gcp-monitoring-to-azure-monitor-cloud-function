@@ -75,7 +75,12 @@ function PushToAzureLogs(content, {id, key, rfc1123date, LogType}, callback) {
                		});
      			}
      			else {
-     			
+     				var httpResError = new Error(Response.statusMessage);
+     				return callback({
+               			msg: "Rejected attempt sending " + util.inspect(content) + " to Azure with status code " + Response.statusCode,
+               			res: Response,
+               			err: httpResError
+               		});
      			}
             });
      
