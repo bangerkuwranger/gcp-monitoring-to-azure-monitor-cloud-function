@@ -145,26 +145,17 @@ exports.helloPubSub = (event, context) => {
  * @env string LOGTYPE The predefined custom log type schema name in Azure.
  */
 exports.sendMsgToAzure = (event, context) => {
-    if ('undefined' !== typeof event) {
-    	if (isDebug) {
-    		console.log(PROC_NAME + ' - event: ' + JSON.stringify(event));
-    	}
-    	if ('string' === typeof event.data) {
-    		try {
-    			var dataObj = JSON.parse(Buffer.from(event.data, 'base64').toString());
-    			event.data = dataObj;
-    		} catch (e) {
-    			event.data = Buffer.from(event.data, 'base64').toString();
-    		}
-    	}
-    }
-    const message = 'undefined' !== typeof event.data
-        ? JSON.stringify(event.data)
+    const theDate = formatTheDate(event.date);
+    const message = 'string' === typeof event.data
+        ? Buffer.from(event.data, 'base64').toString();
         : 'No Content';
-    const theDate = formatTheDate(event.data.date);
+	if (isDebug) {
+		console.log(PROC_NAME + ' - event: ' + JSON.stringify(event));
+		console.log(PROC_NAME + ' - event message: ' + message);
+	}
     PushToAzureLogs(message, {'id': process.env.CUSTID, 'key': process.env.SHAREDKEY, 'rfc1123date': theDate, 'LogType': process.env.LOGTYPE}, (result) => {
     	console.log(PROC_NAME + ' - ' + result.msg);
-    	if (isDebug && 'undefined' !== typeof result.err && null !== result.err) {
+    	if (isDebug && 'object' === typeof result.err && null !== result.err) {
     		if ('object' === typeof result.res && null !== result.res) {
     			result.err.response = result.res;
     		}
