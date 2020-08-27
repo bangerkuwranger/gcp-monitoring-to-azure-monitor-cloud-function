@@ -146,12 +146,12 @@ exports.helloPubSub = (event, context) => {
  */
 exports.sendMsgToAzure = (event, context) => {
     const theDate = formatTheDate(event.date);
-    const message = 'string' === typeof event.data
+    const message = event.data
         ? Buffer.from(event.data, 'base64').toString()
         : 'No Content';
 	if (isDebug) {
 		console.log(PROC_NAME + ' - event: ' + JSON.stringify(event));
-		console.log(PROC_NAME + ' - event message: ' + message);
+		console.log(PROC_NAME + ' - message: ' + message);
 	}
     PushToAzureLogs(message, {'id': process.env.CUSTID, 'key': process.env.SHAREDKEY, 'rfc1123date': theDate, 'LogType': process.env.LOGTYPE}, (result) => {
     	console.log(PROC_NAME + ' - ' + result.msg);
