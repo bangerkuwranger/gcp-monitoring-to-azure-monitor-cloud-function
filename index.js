@@ -92,7 +92,7 @@ function PushToAzureLogs(content, {id, key, rfc1123date, LogType}, callback) {
         return callback({
         	msg: "Error parsing JSON data",
         	res: null,
-        	err
+        	err: err
         });
     }
             
@@ -158,12 +158,12 @@ exports.sendMsgToAzure = (event, context) => {
 	var msgObj = (message === 'No Content') ? {} : JSON.parse(Buffer.from(event.data, 'base64').toString());
     PushToAzureLogs(msgObj, {'id': process.env.CUSTID, 'key': process.env.SHAREDKEY, 'rfc1123date': theDate, 'LogType': process.env.LOGTYPE}, (result) => {
     	console.log(PROC_NAME + ' - ' + result.msg);
-    	if (isDebug && 'object' === typeof result.err && null !== result.err) {
+//     	if (isDebug && 'object' === typeof result.err && null !== result.err) {
     		if ('object' === typeof result.res && null !== result.res) {
     			result.err.response = result.res;
     		}
     		console.error(JSON.stringify(result.err));
-    	}
+//     	}
     });
 };
 
