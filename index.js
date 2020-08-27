@@ -39,6 +39,7 @@ function PushToAzureLogs(content, {id, key, rfc1123date, LogType}, callback) {
             
             if (isDebug) {
 				console.log(PROC_NAME + ' - Azure Unhashed Auth: ' + stringToSign.replace(/(\r\n|\n|\r)/gm, ""));
+				console.log(PROC_NAME + ' - Content to Send: ' + content));
 			}
      
             var hash = crypto.createHmac('sha256',binaryKey)
