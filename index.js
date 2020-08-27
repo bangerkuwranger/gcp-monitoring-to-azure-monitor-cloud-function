@@ -68,8 +68,9 @@ function PushToAzureLogs(content, {id, key, rfc1123date, LogType}, callback) {
 					});
                 }
                 else if (Response && Response.statusCode === 200) {
+               		var sentData = (content instanceof Buffer) ? content.toString() : util.inspect(content);
                		return callback({
-               			msg: "Data successfully sent to Azure " + util.inspect(content) + "with status code " + Response.statusCode,
+               			msg: "Data successfully sent to Azure " + sentData + "with status code " + Response.statusCode,
                			res: Response,
                			err: null
                		});
