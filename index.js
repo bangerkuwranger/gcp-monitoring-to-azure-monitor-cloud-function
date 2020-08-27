@@ -7,6 +7,7 @@ const request = require('request');
 const crypto = require('crypto');
 const util = require('util');
 const PROC_NAME = 'Cloud Function Monitoring to Azure';
+const debug = require('@google-cloud/debug-agent').start({allowExpressiong: true});
 
 /**
  * The environment variable ISDEBUG will turn on debugging behavior if defined
