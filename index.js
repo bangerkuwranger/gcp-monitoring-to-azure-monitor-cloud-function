@@ -155,7 +155,12 @@ exports.sendMsgToAzure = (event, context) => {
 		console.log(PROC_NAME + ' - event: ' + JSON.stringify(event));
 		console.log(PROC_NAME + ' - message: ' + message);
 	}
-	var msgObj = (message === 'No Content') ? {} : JSON.parse(Buffer.from(event.data, 'base64').toString());
+	var msgObj;
+	try {
+		msgObj = (message === 'No Content') ? {} : JSON.parse(Buffer.from(event.data, 'base64').toString());
+	} catch(e) {
+		msgObj = {"message": message};
+	}
     PushToAzureLogs(msgObj, {'id': process.env.CUSTID, 'key': process.env.SHAREDKEY, 'rfc1123date': theDate, 'LogType': process.env.LOGTYPE}, (result) => {
     	console.log(PROC_NAME + ' - ' + result.msg);
     	if (isDebug && 'object' === typeof result.err && null !== result.err) {
