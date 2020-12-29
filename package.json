@@ -9,6 +9,6 @@
   },
   "repository": "github:bangerkuwranger/gcp-monitoring-to-azure-monitor-cloud-function",
   "dependencies": {
-    "@google-cloud/pubsub": "^2.6.0"
+    "@google-cloud/pubsub": "^2.7.0"
   }
 }
